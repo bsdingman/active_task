@@ -10,8 +10,9 @@ module ActiveTask
       desc "This generator creates a ActiveTask task"
       def create
         @formatted_name = name.underscore
-        # YYYYMMDDHHMMSS_NAME.rb
-        template "task.erb", "tasks/#{Time.now.strftime("%Y%m%d%H%M%S")}_#{@formatted_name}.rb"
+        @time = Time.now.strftime("%Y%m%d%H%M%S")
+
+        template "task.erb", "tasks/#{@time}_#{@formatted_name}.rb"
       end
     end
   end

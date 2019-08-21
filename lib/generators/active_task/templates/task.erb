@@ -1,30 +1,10 @@
-ActiveTask.execute do |t|
-  # Array of hashes representing tasks
-  t.tasks = [
-    # TODO: RAKE DOCS
-    # {
-    #   type: :rake,
-    #   tasks: [
-    #     "task",
-    #     "namespace:task"
-    #   ]
-    # }
+class <%= @time %>_<%= name.camelize %> < ActiveTask::Task
+  # TODO: RAKE DOCS
+  # execute(:rake, "task", "namespace:task")
 
-    # TODO: COMMAND DOCS
-    # {
-    #   type: :command,
-    #   commands: [
-    #     "bundle install",
-    #     "yarn install"
-    #   ]
-    # }
+  # TODO: COMMAND DOCS
+  # execute(:command, "yarn install", "bundle install")
 
-    # TODO: CODE DOCS
-    # {
-    #   type: :code,
-    #   code: lambda do
-    #     puts "Hello"
-    #   end
-    # }
-  ]
+  # TODO: CODE DOCS
+  # execute(:code, :my_method)
 end
