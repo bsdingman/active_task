@@ -41,8 +41,6 @@ module ActiveTask
         case task.task_type
         when :rake, :rakes
           verify_rakes(task)
-        when :command, :commands
-          verify_commands(task)
         when :method, :methods
           verify_methods(task)
         else
@@ -53,13 +51,9 @@ module ActiveTask
       def self.verify_rakes(task)
         task.task_attributes.each do |rake_task|
           if !Rake::Task.task_defined?(rake_task)
-            raise InvalidMethodTask.new("Task \"#{@klass}\" could not find rake task \"#{rake_task}\"")
+            raise InvalidRakeTask.new("Task \"#{@klass}\" could not find rake task \"#{rake_task}\"")
           end
         end
-      end
-
-      def self.verify_commands(task)
-        raise InvalidCommandTask.new("TODO")
       end
 
       def self.verify_methods(task)

@@ -18,12 +18,6 @@ describe ActiveTask::Task do
     end
   end
 
-  describe FailureCommandTask do
-    it "should be invalid" do
-      expect(FailureCommandTask.valid?).to be(false)
-    end
-  end
-
   describe FailureRakeTask do
     it "should be invalid" do
       expect(FailureRakeTask.valid?).to be(false)

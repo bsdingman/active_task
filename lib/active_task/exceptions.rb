@@ -3,7 +3,6 @@ module ActiveTask
   class PendingTask < StandardError; end
   class InvalidTask < StandardError; end
   class InvalidRakeTask < StandardError; end
-  class InvalidCommandTask < StandardError; end
   class InvalidMethodTask < StandardError; end
 
   class FailedTask < StandardError
