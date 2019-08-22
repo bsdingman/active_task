@@ -1,3 +1,5 @@
+require "rake"
+
 module ActiveTask
   module Task
     class Base
@@ -49,7 +51,11 @@ module ActiveTask
       end
 
       def self.verify_rakes(task)
-        raise InvalidRakeTask.new("TODO")
+        task.task_attributes.each do |rake_task|
+          if !Rake::Task.task_defined?(rake_task)
+            raise InvalidMethodTask.new("Task \"#{@klass}\" could not find rake task \"#{rake_task}\"")
+          end
+        end
       end
 
       def self.verify_commands(task)

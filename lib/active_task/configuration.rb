@@ -4,6 +4,6 @@ module ActiveTask
   class Configuration 
     include ActiveSupport::Configurable
 
-    config_accessor(:table_name) { :ran_tasks }
+    config_accessor(:table_name) { :completed_tasks }
   end
 end

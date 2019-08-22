@@ -1,4 +1,5 @@
 module ActiveTask
+  class InvalidConfig < StandardError; end
   class PendingTask < StandardError; end
   class InvalidTask < StandardError; end
   class InvalidRakeTask < StandardError; end

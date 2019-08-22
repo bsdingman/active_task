@@ -1,6 +1,14 @@
 require "active_task"
 
 describe ActiveTask do
+  it "should be configured" do 
+    ActiveTask.configure do |c|
+      c.table_name = :testing_table
+    end
+
+    expect(ActiveTask.config.table_name).to be(:testing_table)
+  end
+
   it "should throw an PendingTask" do
     active_task = ActiveTask::Middleware.new(nil)
     expect{ active_task.check_for_tasks }.to raise_error(ActiveTask::PendingTask)
