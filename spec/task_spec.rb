@@ -3,6 +3,10 @@ require_relative "./models/test_tasks"
 
 describe ActiveTask::Task do
   describe FailureMethodTask do
+    it "should be valid" do
+      expect(ValidMethodTask.valid?).to be(true)
+    end
+
     it "should be invalid" do
       expect(FailureMethodTask.valid?).to be(false)
     end
