@@ -12,7 +12,7 @@ module ActiveTask
 
     def check_for_tasks
       if pending_tasks?
-        raise ActiveTask::PendingTask.new("You have a pending task that needs completed. Please execute command \"bundle exec rake at:run\" to clear this error")
+        raise ActiveTask::Exceptions::PendingTask.new("You have a pending task that needs completed. Please execute command \"bundle exec rake at:run\" to clear this error")
       end
     end
 

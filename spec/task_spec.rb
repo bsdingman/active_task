@@ -7,7 +7,7 @@ describe ActiveTask::Task do
     end
 
     it "should execute" do
-      expect(ValidMethodTask.execute_tasks)
+      expect{ ValidMethodTask.execute_tasks }.not_to raise_exception(ActiveTask::Exceptions::FailedTask)
     end
   end
 
@@ -27,7 +27,7 @@ describe ActiveTask::Task do
     end
 
     it "should raise an exception" do 
-      expect{ FailureRaiseExceptionMethodTask.execute_tasks }.to raise_exception(FailedTask)
+      expect{ FailureRaiseExceptionMethodTask.execute_tasks }.to raise_exception(ActiveTask::Exceptions::FailedTask)
     end
   end
 

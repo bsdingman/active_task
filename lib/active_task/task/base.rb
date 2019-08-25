@@ -27,7 +27,7 @@ module ActiveTask
         @tasks.each do |task|
           begin
             check_validity(task)
-          rescue InvalidTask, InvalidRakeTask, InvalidMethodTask => ex
+          rescue ActiveTask::Exceptions::InvalidTask, ActiveTask::Exceptions::InvalidRakeTask, ActiveTask::Exceptions::InvalidMethodTask => ex
             @errors << ex.message
             valid = false
           end
@@ -57,14 +57,14 @@ module ActiveTask
         when :method
           verify_methods(task)
         else
-          raise InvalidTask.new("Type \"#{task.task_type}\" is not a valid task type")
+          raise ActiveTask::Exceptions::InvalidTask.new("Type \"#{task.task_type}\" is not a valid task type")
         end
       end
 
       def self.verify_rakes(task)
         task.task_attributes.each do |rake_task|
           if !Rake::Task.task_defined?(rake_task)
-            raise InvalidRakeTask.new("Task \"#{@klass_name}\" could not find rake task \"#{rake_task}\"")
+            raise ActiveTask::Exceptions::InvalidRakeTask.new("Task \"#{@klass_name}\" could not find rake task \"#{rake_task}\"")
           end
         end
       end
@@ -72,7 +72,7 @@ module ActiveTask
       def self.verify_methods(task)
         task.task_attributes.each do |method_name|
           if !method_defined?(method_name)
-            raise InvalidMethodTask.new("Task \"#{@klass_name}\" method task method \"#{method_name}\" has not been defined")
+            raise ActiveTask::Exceptions::InvalidMethodTask.new("Task \"#{@klass_name}\" method task method \"#{method_name}\" has not been defined")
           end
         end
       end
@@ -91,7 +91,7 @@ module ActiveTask
             send(method_name)
           end
         rescue StandardError => ex
-          raise FailedTask.new(@klass_name, ex.message)
+          raise ActiveTask::Exceptions::FailedTask.new(@klass_name, ex.message)
         end
       end
     end
