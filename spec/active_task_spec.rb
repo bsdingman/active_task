@@ -4,6 +4,7 @@ describe ActiveTask do
   it "should be configured" do 
     ActiveTask.configure do |c|
       c.table_name = :testing_table
+      c.database_yml = File.join(File.expand_path("./spec/config"), "database.yml")
     end
 
     expect(ActiveTask.config.table_name).to be(:testing_table)

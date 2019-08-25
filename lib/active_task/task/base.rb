@@ -7,11 +7,11 @@ module ActiveTask
       # Public Methods
       ###################################
       class << self
-        attr_accessor :klass, :tasks, :errors
+        attr_accessor :klass_name, :tasks, :errors
       end
       
       def self.define_variables
-        @klass ||= self.name
+        @klass_name ||= self.name
         @tasks ||= []
         @errors ||= []
       end
@@ -27,7 +27,7 @@ module ActiveTask
         @tasks.each do |task|
           begin
             check_validity(task)
-          rescue InvalidTask, InvalidRakeTask, InvalidCommandTask, InvalidMethodTask => ex
+          rescue InvalidTask, InvalidRakeTask, InvalidMethodTask => ex
             @errors << ex.message
             valid = false
           end
@@ -36,12 +36,25 @@ module ActiveTask
         valid
       end
 
+      def self.execute_tasks
+        @tasks.each do |task|
+          case task.task_type
+          when :rake
+            execute_rakes(task)
+          when :command
+            execute_commands(task)
+          when :method
+            execute_methods(task)
+          end
+        end
+      end
+
       protected
       def self.check_validity(task)
         case task.task_type
-        when :rake, :rakes
+        when :rake
           verify_rakes(task)
-        when :method, :methods
+        when :method
           verify_methods(task)
         else
           raise InvalidTask.new("Type \"#{task.task_type}\" is not a valid task type")
@@ -51,7 +64,7 @@ module ActiveTask
       def self.verify_rakes(task)
         task.task_attributes.each do |rake_task|
           if !Rake::Task.task_defined?(rake_task)
-            raise InvalidRakeTask.new("Task \"#{@klass}\" could not find rake task \"#{rake_task}\"")
+            raise InvalidRakeTask.new("Task \"#{@klass_name}\" could not find rake task \"#{rake_task}\"")
           end
         end
       end
@@ -59,26 +72,26 @@ module ActiveTask
       def self.verify_methods(task)
         task.task_attributes.each do |method_name|
           if !method_defined?(method_name)
-            raise InvalidMethodTask.new("Task \"#{@klass}\" method task method \"#{method_name}\" has not been defined")
+            raise InvalidMethodTask.new("Task \"#{@klass_name}\" method task method \"#{method_name}\" has not been defined")
           end
         end
       end
 
-      def self.execute_rakes(rake_tasks)
+      def self.execute_rakes(task)
 
       end
 
-      def self.execute_commands(commands)
+      def self.execute_commands(task)
         
       end
 
-      def self.execute_methods(method_names)
-        method_names.each do |method_name|
-          if defined?(method_name)
-            self.send(method_name)
-          else
-            raise FailedTask.new(self.class.name, "Method #{method_name} has not been defined")
+      def self.execute_methods(task)
+        begin
+          task.task_attributes.each do |method_name|
+            send(method_name)
           end
+        rescue StandardError => ex
+          raise FailedTask.new(@klass_name, ex.message)
         end
       end
     end

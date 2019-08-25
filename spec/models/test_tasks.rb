@@ -1,5 +1,3 @@
-require "active_task/task"
-
 class ValidMethodTask < ActiveTask::Task::Base
   execute(:method, :my_method)
 
@@ -8,8 +6,16 @@ class ValidMethodTask < ActiveTask::Task::Base
   end
 end
 
-class FailureMethodTask < ActiveTask::Task::Base
+class FailureMissingMethodTask < ActiveTask::Task::Base
   execute(:method, :my_method)
+end
+
+class FailureRaiseExceptionMethodTask < ActiveTask::Task::Base
+  execute(:method, :my_exception_method)
+
+  def my_exception_method
+    foo
+  end
 end
 
 class FailureRakeTask < ActiveTask::Task::Base

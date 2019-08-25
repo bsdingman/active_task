@@ -9,4 +9,7 @@ Gem::Specification.new do |s|
   ]
   s.require_paths = ["lib"]
   s.add_runtime_dependency "rails"
+  s.add_development_dependency "rspec"
+  s.add_development_dependency "byebug"
+  s.add_development_dependency "sqlite3"
 end

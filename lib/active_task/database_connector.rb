@@ -12,11 +12,7 @@ module ActiveTask
 
     private
     def self.path_to_database_yml
-      if Rails.env.test?
-        File.join(File.expand_path("./config"), "database.yml")
-      else
-        File.join(Rails.root, "config", "database.yml")
-      end
+      ActiveTask.config.database_yml
     end
 
     def self.create_table

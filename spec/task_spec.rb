@@ -1,4 +1,3 @@
-require "active_task/task"
 require_relative "./models/test_tasks"
 
 describe ActiveTask::Task do
@@ -6,15 +5,29 @@ describe ActiveTask::Task do
     it "should be valid" do
       expect(ValidMethodTask.valid?).to be(true)
     end
+
+    it "should execute" do
+      expect(ValidMethodTask.execute_tasks)
+    end
   end
 
-  describe FailureMethodTask do
+  describe FailureMissingMethodTask do
     it "should be invalid" do
-      expect(FailureMethodTask.valid?).to be(false)
+      expect(FailureMissingMethodTask.valid?).to be(false)
     end
 
     it "should not have \"my_method\" defined" do 
-      expect(FailureMethodTask.errors).to include("Task \"FailureMethodTask\" method task method \"my_method\" has not been defined")
+      expect(FailureMissingMethodTask.errors).to include("Task \"FailureMethodTask\" method task method \"my_method\" has not been defined")
+    end
+  end
+
+  describe FailureRaiseExceptionMethodTask do
+    it "should be valid" do
+      expect(FailureRaiseExceptionMethodTask.valid?).to be(true)
+    end
+
+    it "should raise an exception" do 
+      expect{ FailureRaiseExceptionMethodTask.execute_tasks }.to raise_exception(FailedTask)
     end
   end
 
