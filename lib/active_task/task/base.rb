@@ -1,17 +1,17 @@
 require "rake"
+require "byebug"
 
 module ActiveTask
   module Task
     class Base
       ###################################
-      # Public Methods
+      # Public Class Methods
       ###################################
       class << self
-        attr_accessor :klass_name, :tasks, :errors
+        attr_accessor :tasks, :errors
       end
       
       def self.define_variables
-        @klass_name ||= self.name
         @tasks ||= []
         @errors ||= []
       end
@@ -21,13 +21,28 @@ module ActiveTask
         @tasks << Internal::RunningTask.new(task_type, task_attributes)
       end
 
-      def self.valid?
+      def self.instantiate
+        new(@tasks)
+      end
+
+      ###################################
+      # Public Instance Methods
+      ###################################
+      attr_accessor :tasks, :errors
+      def initialize(tasks)
+        @tasks = tasks
+        @errors = []
+        @klass_name = self.class.name
+      end
+
+      def valid?
         valid = true
 
         @tasks.each do |task|
           begin
             check_validity(task)
           rescue ActiveTask::Exceptions::InvalidTask, ActiveTask::Exceptions::InvalidRakeTask, ActiveTask::Exceptions::InvalidMethodTask => ex
+            byebug
             @errors << ex.message
             valid = false
           end
@@ -36,7 +51,7 @@ module ActiveTask
         valid
       end
 
-      def self.execute_tasks
+      def execute_tasks
         @tasks.each do |task|
           case task.task_type
           when :rake
@@ -50,7 +65,7 @@ module ActiveTask
       end
 
       protected
-      def self.check_validity(task)
+      def check_validity(task)
         case task.task_type
         when :rake
           verify_rakes(task)
@@ -61,7 +76,7 @@ module ActiveTask
         end
       end
 
-      def self.verify_rakes(task)
+      def verify_rakes(task)
         task.task_attributes.each do |rake_task|
           if !Rake::Task.task_defined?(rake_task)
             raise ActiveTask::Exceptions::InvalidRakeTask.new("Task \"#{@klass_name}\" could not find rake task \"#{rake_task}\"")
@@ -69,23 +84,23 @@ module ActiveTask
         end
       end
 
-      def self.verify_methods(task)
+      def verify_methods(task)
         task.task_attributes.each do |method_name|
-          if !method_defined?(method_name)
+          if !self.class.method_defined?(method_name)
             raise ActiveTask::Exceptions::InvalidMethodTask.new("Task \"#{@klass_name}\" method task method \"#{method_name}\" has not been defined")
           end
         end
       end
 
-      def self.execute_rakes(task)
+      def execute_rakes(task)
 
       end
 
-      def self.execute_commands(task)
+      def execute_commands(task)
         
       end
 
-      def self.execute_methods(task)
+      def execute_methods(task)
         begin
           task.task_attributes.each do |method_name|
             send(method_name)

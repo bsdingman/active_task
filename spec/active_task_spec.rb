@@ -12,7 +12,7 @@ describe ActiveTask do
 
   it "should throw an PendingTask" do
     active_task = ActiveTask::Middleware.new(nil)
-    expect{ active_task.check_for_tasks }.to raise_error(ActiveTask::PendingTask)
+    expect{ active_task.check_for_tasks }.to raise_error("You have a pending task that needs completed. Please execute command \"bundle exec rake at:run\" to clear this error")
   end
 
   it "should be connected to ActiveRecord" do
