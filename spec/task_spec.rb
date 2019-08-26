@@ -15,6 +15,20 @@ describe ActiveTask::Task do
     end
   end
 
+  describe ValidCommandTask do 
+    before(:context) do
+      @task = ValidCommandTask.instantiate
+    end
+
+    it "should be valid" do
+      expect(@task.valid?).to be(true)
+    end
+
+    it "should execute" do
+      expect{ @task.execute_tasks }.not_to raise_error
+    end
+  end
+
   describe FailureMissingMethodTask do
     before(:context) do
       @task = FailureMissingMethodTask.instantiate

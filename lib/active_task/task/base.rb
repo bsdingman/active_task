@@ -70,6 +70,9 @@ module ActiveTask
           verify_rakes(task)
         when :method
           verify_methods(task)
+        when :command
+          # Haven't found a good way to check if system commands exist
+          return 
         else
           raise ActiveTask::Exceptions::InvalidTask.new("Type \"#{task.task_type}\" is not a valid task type")
         end
@@ -96,7 +99,13 @@ module ActiveTask
       end
 
       def execute_commands(task)
-        
+        begin
+          task.task_attributes.each do |command|
+            `#{command}`
+          end
+        rescue Exception => ex
+          raise ActiveTask::Exceptions::FailedTask(@klass_name, ex.message)
+        end
       end
 
       def execute_methods(task)
