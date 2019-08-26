@@ -10,6 +10,10 @@ class ValidCommandTask < ActiveTask::Task::Base
   execute :command, "ls"
 end
 
+class ValidRakeTask < ActiveTask::Task::Base
+  execute :rake, "active_task_testing:valid"
+end
+
 class FailureMissingMethodTask < ActiveTask::Task::Base
   execute :method, :my_method
 end

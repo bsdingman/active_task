@@ -1,0 +1,4 @@
+require 'active_task'
+
+path = File.expand_path(__dir__)
+Dir.glob("#{path}/rake_tasks/**/*.rake").each { |f| import f }

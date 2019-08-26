@@ -95,7 +95,15 @@ module ActiveTask
       end
 
       def execute_rakes(task)
-
+        task.task_attributes.each do |rake_task|
+          begin
+            task.task_attributes.each do |rake_task|
+              Rake::Task[rake_task].invoke
+            end
+          rescue Exception => ex
+            raise ActiveTask::Exceptions::FailedTask(@klass_name, ex.message)
+          end
+        end
       end
 
       def execute_commands(task)

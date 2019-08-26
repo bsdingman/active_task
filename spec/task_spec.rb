@@ -10,6 +10,10 @@ describe ActiveTask::Task do
       expect(@task.valid?).to be(true)
     end
 
+    it "should have no errors" do 
+      expect(@task.errors).to be_empty
+    end
+
     it "should execute" do
       expect{ @task.execute_tasks }.not_to raise_error
     end
@@ -22,6 +26,28 @@ describe ActiveTask::Task do
 
     it "should be valid" do
       expect(@task.valid?).to be(true)
+    end
+
+    it "should have no errors" do 
+      expect(@task.errors).to be_empty
+    end
+
+    it "should execute" do
+      expect{ @task.execute_tasks }.not_to raise_error
+    end
+  end
+
+  describe ValidRakeTask do 
+    before(:context) do
+      @task = ValidRakeTask.instantiate
+    end
+
+    it "should be valid" do
+      expect(@task.valid?).to be(true)
+    end
+
+    it "should have no errors" do 
+      expect(@task.errors).to be_empty
     end
 
     it "should execute" do
