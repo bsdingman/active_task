@@ -39,7 +39,7 @@ describe ActiveTask::Task do
     end
 
     it "should raise an exception" do 
-      expect{ @task.execute_tasks }.to raise_error()
+      expect{ @task.execute_tasks }.to raise_error(/undefined local variable or method/i)
     end
   end
 
