@@ -2,7 +2,7 @@ class ValidMethodTask < ActiveTask::Task::Base
   execute(:method, :my_method)
 
   def my_method
-    puts "Hello World"
+    "Hello World"
   end
 end
 

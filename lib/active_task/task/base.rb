@@ -42,7 +42,6 @@ module ActiveTask
           begin
             check_validity(task)
           rescue ActiveTask::Exceptions::InvalidTask, ActiveTask::Exceptions::InvalidRakeTask, ActiveTask::Exceptions::InvalidMethodTask => ex
-            byebug
             @errors << ex.message
             valid = false
           end
