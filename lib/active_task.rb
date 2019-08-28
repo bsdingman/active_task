@@ -1,3 +1,4 @@
+require "active_task/version"
 require "active_task/active_task"
 require "active_task/configuration"
 require "active_task/exceptions"

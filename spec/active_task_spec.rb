@@ -16,7 +16,8 @@ describe ActiveTask do
   end
 
   it "should be connected to ActiveRecord" do
-    expect(ActiveTask::DatabaseConnector.connect).not_to be_nil
+    ActiveTask::DatabaseConnector.connect
+    expect(ActiveRecord::Base.connected?).to be(true)
   end
 
   it "should have the task table created" do

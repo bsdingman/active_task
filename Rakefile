@@ -1,2 +1,6 @@
-spec = Gem::Specification.find_by_name('active_task')
-load "#{spec.gem_dir}/lib/active_task/Rakefile"
+require "bundler/gem_tasks"
+require "rspec/core/rake_task"
+
+RSpec::Core::RakeTask.new(:spec)
+
+task :default => :spec
