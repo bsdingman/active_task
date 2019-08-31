@@ -1,21 +1,21 @@
 example_id                      | status | run_time        |
 ------------------------------- | ------ | --------------- |
-./spec/active_task_spec.rb[1:1] | passed | 0.00033 seconds |
-./spec/active_task_spec.rb[1:2] | passed | 0.00164 seconds |
-./spec/active_task_spec.rb[1:3] | passed | 0.11098 seconds |
-./spec/active_task_spec.rb[1:4] | passed | 0.00018 seconds |
-./spec/task_spec.rb[1:1:1]      | passed | 0.00006 seconds |
+./spec/active_task_spec.rb[1:1] | passed | 0.00036 seconds |
+./spec/active_task_spec.rb[1:2] | passed | 0.00073 seconds |
+./spec/active_task_spec.rb[1:3] | passed | 0.11315 seconds |
+./spec/active_task_spec.rb[1:4] | passed | 0.00019 seconds |
+./spec/task_spec.rb[1:1:1]      | passed | 0.00004 seconds |
 ./spec/task_spec.rb[1:1:2]      | passed | 0.00071 seconds |
 ./spec/task_spec.rb[1:1:3]      | passed | 0.00006 seconds |
 ./spec/task_spec.rb[1:2:1]      | passed | 0.00004 seconds |
-./spec/task_spec.rb[1:2:2]      | passed | 0.00005 seconds |
-./spec/task_spec.rb[1:2:3]      | passed | 0.00074 seconds |
-./spec/task_spec.rb[1:3:1]      | passed | 0.99433 seconds |
-./spec/task_spec.rb[1:3:2]      | passed | 0.00028 seconds |
-./spec/task_spec.rb[1:3:3]      | passed | 0.00035 seconds |
-./spec/task_spec.rb[1:4:1]      | passed | 0.00027 seconds |
-./spec/task_spec.rb[1:4:2]      | passed | 0.00192 seconds |
-./spec/task_spec.rb[1:5:1]      | passed | 0.00011 seconds |
-./spec/task_spec.rb[1:5:2]      | passed | 0.00111 seconds |
-./spec/task_spec.rb[1:6:1]      | passed | 0.63154 seconds |
-./spec/task_spec.rb[1:6:2]      | passed | 0.00024 seconds |
+./spec/task_spec.rb[1:2:2]      | passed | 0.00004 seconds |
+./spec/task_spec.rb[1:2:3]      | passed | 0.00087 seconds |
+./spec/task_spec.rb[1:3:1]      | passed | 0.00005 seconds |
+./spec/task_spec.rb[1:3:2]      | passed | 0.00004 seconds |
+./spec/task_spec.rb[1:3:3]      | passed | 0.00726 seconds |
+./spec/task_spec.rb[1:4:1]      | passed | 0.00009 seconds |
+./spec/task_spec.rb[1:4:2]      | passed | 0.0007 seconds  |
+./spec/task_spec.rb[1:5:1]      | passed | 0.00005 seconds |
+./spec/task_spec.rb[1:5:2]      | passed | 0.00068 seconds |
+./spec/task_spec.rb[1:6:1]      | passed | 0.00006 seconds |
+./spec/task_spec.rb[1:6:2]      | passed | 0.00004 seconds |

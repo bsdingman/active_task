@@ -12,6 +12,7 @@ end
 
 class ValidRakeTask < ActiveTask::Task::Base
   execute :rake, "active_task_testing:valid"
+  execute :rake, "active_task_testing:valid_args": ["1", "2"]
 end
 
 class FailureMissingMethodTask < ActiveTask::Task::Base

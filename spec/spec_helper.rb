@@ -3,6 +3,7 @@ require "active_task"
 
 # Load rake tasks
 load "active_task/rake_tasks/tests.rake"
+Rake::Task.define_task(:environment)
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

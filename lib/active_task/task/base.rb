@@ -1,5 +1,4 @@
 require "rake"
-require "byebug"
 
 module ActiveTask
   module Task
@@ -10,7 +9,7 @@ module ActiveTask
       class << self
         attr_accessor :tasks, :errors
       end
-      
+
       def self.define_variables
         @tasks ||= []
         @errors ||= []
@@ -72,7 +71,7 @@ module ActiveTask
           verify_methods(task)
         when :command
           # Haven't found a good way to check if system commands exist
-          return 
+          return
         else
           raise ActiveTask::Exceptions::InvalidTask.new("Type \"#{task.task_type}\" is not a valid task type")
         end
@@ -80,9 +79,16 @@ module ActiveTask
 
       def verify_rakes(task)
         task.task_attributes.each do |rake_task|
-          byebug
-          if !Rake::Task.task_defined?(rake_task)
-            raise ActiveTask::Exceptions::InvalidRakeTask.new("Task \"#{@klass_name}\" could not find rake task \"#{rake_task}\"")
+          if rake_task.is_a?(Hash)
+            rake_task.each do |rake, args|
+              if !Rake::Task.task_defined?(rake)
+                raise ActiveTask::Exceptions::InvalidRakeTask.new("Task \"#{@klass_name}\" could not find rake task \"#{rake}\"")
+              end
+            end
+          else
+            if !Rake::Task.task_defined?(rake_task)
+              raise ActiveTask::Exceptions::InvalidRakeTask.new("Task \"#{@klass_name}\" could not find rake task \"#{rake_task}\"")
+            end
           end
         end
       end
@@ -98,11 +104,15 @@ module ActiveTask
       def execute_rakes(task)
         task.task_attributes.each do |rake_task|
           begin
-            task.task_attributes.each do |rake_task|
-              Rake::Task[rake_task].invoke
+            if rake_task.is_a?(Hash)
+              rake_task.each do |rake, args|
+                ActiveTask::Task::Internal::RakeTask.invoke(rake, arguments: args)
+              end
+            else
+              ActiveTask::Task::Internal::RakeTask.invoke(rake_task)
             end
           rescue Exception => ex
-            raise ActiveTask::Exceptions::FailedTask(@klass_name, ex.message)
+            raise ActiveTask::Exceptions::FailedTask.new(@klass_name, ex.message)
           end
         end
       end
@@ -113,7 +123,7 @@ module ActiveTask
             `#{command}`
           end
         rescue Exception => ex
-          raise ActiveTask::Exceptions::FailedTask(@klass_name, ex.message)
+          raise ActiveTask::Exceptions::FailedTask.new(@klass_name, ex.message)
         end
       end
 
