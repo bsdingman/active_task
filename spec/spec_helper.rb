@@ -1,6 +1,9 @@
 require "bundler/setup"
 require "active_task"
 
+# Load rake tasks
+load "active_task/rake_tasks/tests.rake"
+
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = ".rspec_status"

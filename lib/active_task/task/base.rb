@@ -80,6 +80,7 @@ module ActiveTask
 
       def verify_rakes(task)
         task.task_attributes.each do |rake_task|
+          byebug
           if !Rake::Task.task_defined?(rake_task)
             raise ActiveTask::Exceptions::InvalidRakeTask.new("Task \"#{@klass_name}\" could not find rake task \"#{rake_task}\"")
           end
