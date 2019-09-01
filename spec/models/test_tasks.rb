@@ -30,5 +30,9 @@ class FailureRaiseExceptionMethodTask < ActiveTask::Task::Base
 end
 
 class FailureRakeTask < ActiveTask::Task::Base
-  execute(:rake, "test_rake")
+  execute :rake, "test_rake"
+end
+
+class RakeRaiseExceptionTask < ActiveTask::Task::Base
+  execute :rake, "active_task_testing:raise_exception"
 end

@@ -16,4 +16,9 @@ namespace :active_task_testing do
     response = STDIN.gets.chomp
     raise "Expected 2, got #{response}" if response != "2"
   end
+
+  desc "(tests) Is Invalid, raises exception"
+  task raise_exception: :environment do 
+    raise Exception.new("I am an exception!")
+  end
 end

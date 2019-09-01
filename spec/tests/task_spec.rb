@@ -124,4 +124,26 @@ describe ActiveTask::Task::Base do
       expect(ActiveTask.resource.where(version: @task.version).any?).to be(false)
     end
   end
+
+  describe RakeRaiseExceptionTask do
+    before(:context) do
+      @task = RakeRaiseExceptionTask.instantiate(generate_version)
+    end
+
+    it "should be valid" do
+      expect(@task.valid?).to be(true)
+    end
+
+    it "should have no errors" do 
+      expect(@task.errors).to be_empty
+    end
+
+    it "should raise an exception when executing" do
+      expect{ @task.execute_tasks! }.to raise_error(/i am an exception\!/i)
+    end
+    
+    it "should not be marked as completed" do 
+      expect(ActiveTask.resource.where(version: @task.version).any?).to be(false)
+    end
+  end
 end
