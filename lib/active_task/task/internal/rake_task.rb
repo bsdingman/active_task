@@ -1,4 +1,3 @@
-require "byebug"
 module ActiveTask
   module Task
     module Internal

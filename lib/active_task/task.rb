@@ -14,32 +14,51 @@ module ActiveTask
       execute!
     end
 
-    private
-    def self.tasks
-      # Get all the previous versions that we've ran. 
-      previous_versions = ActiveTask.table_name.constantize.all
+    def self.mark_completed(file_name)
+      # Remove the .rb from the end
+      if file_name.end_with?(".rb")
+        file_name = file_name[0..-4]
+      end
       
-      # Ignoring previous versions, build an array of tasks to run
+      # Create the task and mark it completed
+      task = ActiveTask::Task::Internal::FileTask.new("#{File.expand_path("./tasks")}/#{file_name}.rb")
+      require task.file_path
+      running_task = task.name.camelize.constantize.instantiate(task.version)
+      running_task.mark_as_completed!
+    end
+
+    private
+    def self.task_already_completed?(task)
+      ActiveTask.resource.where(version: task.version).any?
+    end
+
+    def self.tasks      
+      # Ignoring previous versions, build an array of tasks to run. Compact will remove any nils
       Dir["#{File.expand_path("./tasks")}/*.rb"].map do |task| 
         task = ActiveTask::Task::Internal::FileTask.new(task)
-        next if previous_versions.include?(task.version)
+        next if task_already_completed?(task)
         task
-      end
+      end.compact
     end
 
     def self.execute!
       tasks.each do |task|
+        puts "Running task: #{task.name}:#{task.version}"
         # Require the task via it's file path
         require task.file_path
 
         klass = task.name.camelize.constantize
-        running_task = klass.instantiate
+        running_task = klass.instantiate(task.version)
 
         if !running_task.valid?
           raise Exception.new(running_task.errors_as_string)
         end
 
-        running_task.execute_tasks
+        # Execute the pending tasks. This will raise if failed
+        running_task.execute_tasks!
+
+        # Marking the task as completed will put it in the database
+        running_task.mark_as_completed!
       end
     end
   end

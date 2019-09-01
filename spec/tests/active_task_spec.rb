@@ -46,4 +46,15 @@ describe ActiveTask do
 
     expect{ ActiveTask::Task.run }.to raise_error(/method \"my_method\" has not been defined/i)
   end
+
+  it "should mark it completed" do 
+    task_name = generate_task("mark_as_completed", %q(
+      class MarkAsCompleted < ActiveTask::Task::Base
+      end
+    ))
+
+    ActiveTask::Task.mark_completed(task_name)
+
+    expect(ActiveTask.resource.where(version: parse_version_from_task_name(task_name)).first).not_to be(nil)
+  end
 end

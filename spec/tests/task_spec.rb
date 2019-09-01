@@ -1,9 +1,9 @@
-require_relative "./models/test_tasks"
+require_relative "../models/test_tasks"
 
 describe ActiveTask::Task do
   describe ValidMethodTask do
     before(:context) do
-      @task = ValidMethodTask.instantiate
+      @task = ValidMethodTask.instantiate(Time.now.strftime("%Y%m%d%H%M%S"))
     end
 
     it "should be valid" do
@@ -15,13 +15,13 @@ describe ActiveTask::Task do
     end
 
     it "should execute" do
-      expect{ @task.execute_tasks }.not_to raise_error
+      expect{ @task.execute_tasks! }.not_to raise_error
     end
   end
 
   describe ValidCommandTask do 
     before(:context) do
-      @task = ValidCommandTask.instantiate
+      @task = ValidCommandTask.instantiate(Time.now.strftime("%Y%m%d%H%M%S"))
     end
 
     it "should be valid" do
@@ -33,13 +33,13 @@ describe ActiveTask::Task do
     end
 
     it "should execute" do
-      expect{ @task.execute_tasks }.not_to raise_error
+      expect{ @task.execute_tasks! }.not_to raise_error
     end
   end
 
   describe ValidRakeTask do 
     before(:context) do
-      @task = ValidRakeTask.instantiate
+      @task = ValidRakeTask.instantiate(generate_version)
     end
 
     it "should be valid" do
@@ -51,13 +51,13 @@ describe ActiveTask::Task do
     end
 
     it "should execute" do
-      expect{ @task.execute_tasks }.not_to raise_error
+      expect{ @task.execute_tasks! }.not_to raise_error
     end
   end
 
   describe FailureMissingMethodTask do
     before(:context) do
-      @task = FailureMissingMethodTask.instantiate
+      @task = FailureMissingMethodTask.instantiate(generate_version)
     end
 
     it "should be invalid" do
@@ -71,7 +71,7 @@ describe ActiveTask::Task do
 
   describe FailureRaiseExceptionMethodTask do
     before(:context) do
-      @task = FailureRaiseExceptionMethodTask.instantiate
+      @task = FailureRaiseExceptionMethodTask.instantiate(generate_version)
     end
 
     it "should be valid" do
@@ -79,13 +79,13 @@ describe ActiveTask::Task do
     end
 
     it "should raise an exception" do 
-      expect{ @task.execute_tasks }.to raise_error(/undefined local variable or method/i)
+      expect{ @task.execute_tasks! }.to raise_error(/undefined local variable or method/i)
     end
   end
 
   describe FailureRakeTask do
     before(:context) do
-      @task = FailureRakeTask.instantiate
+      @task = FailureRakeTask.instantiate(generate_version)
     end
 
     it "should be invalid" do

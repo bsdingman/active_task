@@ -20,18 +20,19 @@ module ActiveTask
         @tasks << Internal::RunningTask.new(task_type, task_attributes)
       end
 
-      def self.instantiate
-        new(@tasks)
+      def self.instantiate(version)
+        new(@tasks, version)
       end
 
       ###################################
       # Public Instance Methods
       ###################################
       attr_accessor :tasks, :errors
-      def initialize(tasks)
+      def initialize(tasks, version)
         @tasks = tasks
         @errors = []
         @klass_name = self.class.name
+        @version = version
       end
 
       def valid?
@@ -49,7 +50,7 @@ module ActiveTask
         valid
       end
 
-      def execute_tasks
+      def execute_tasks!
         @tasks.each do |task|
           case task.task_type
           when :rake
@@ -60,6 +61,10 @@ module ActiveTask
             execute_methods(task)
           end
         end
+      end
+
+      def mark_as_completed!
+        ActiveTask.resource.create!(version: @version)
       end
 
       def errors_as_string
