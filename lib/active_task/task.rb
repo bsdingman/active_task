@@ -2,7 +2,6 @@ require "active_task/task/internal/running_task"
 require "active_task/task/internal/rake_task"
 require "active_task/task/internal/file_task"
 require "active_task/task/base"
-require "byebug"
 
 module ActiveTask
   module Task
