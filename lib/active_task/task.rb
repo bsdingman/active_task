@@ -8,8 +8,8 @@ module ActiveTask
   module Task
     def self.run
       # Connect to the DB if we aren't already
-      if !ActiveTask::DatabaseConnector.connected?
-        ActiveTask::DatabaseConnector.connect
+      if !ActiveTask::Database.connected?
+        ActiveTask::Database.connect
       end
 
       execute!

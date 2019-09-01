@@ -2,7 +2,7 @@ require "active_record"
 require "rails"
 
 module ActiveTask
-  class DatabaseConnector
+  class Database
     class << self
       attr_accessor :connected
     end

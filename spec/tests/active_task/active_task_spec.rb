@@ -11,7 +11,7 @@ describe ActiveTask do
   end
 
   it "should be connected to ActiveRecord" do
-    ActiveTask::DatabaseConnector.connect
+    ActiveTask::Database.connect
     expect(ActiveRecord::Base.connected?).to be(true)
   end
 
