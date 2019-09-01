@@ -16,6 +16,11 @@ RSpec.configure do |config|
   end
 end
 
+ActiveTask.configure do |c|
+  c.table_name = :testing_tables
+  c.database_yml = File.join(File.expand_path("./spec/config"), "database.yml")
+end
+
 def clear_task_folder
   # Clean up the tasks folder
   Dir["#{File.expand_path("./tasks")}/*.rb"].each{ |f| File.delete(f) }
