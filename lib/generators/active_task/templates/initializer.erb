@@ -1,4 +1,8 @@
 ActiveTask.configure do |c|
+  # The name of the table that will be added to your database to store which versions have ran (Similar to ActiveRecord)
+  # This name must be plural
   c.table_name = :completed_tasks
+
+  # The location of the database.yml file that contains your Database connection information
   c.database_yml = File.join(Rails.root, "config", "database.yml")
 end

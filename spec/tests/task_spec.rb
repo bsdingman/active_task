@@ -19,9 +19,9 @@ describe ActiveTask::Task do
     end
   end
 
-  describe ValidCommandTask do 
+  describe ValidSystemCommandTask do 
     before(:context) do
-      @task = ValidCommandTask.instantiate(Time.now.strftime("%Y%m%d%H%M%S"))
+      @task = ValidSystemCommandTask.instantiate(Time.now.strftime("%Y%m%d%H%M%S"))
     end
 
     it "should be valid" do

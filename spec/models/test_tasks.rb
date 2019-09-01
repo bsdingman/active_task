@@ -6,8 +6,8 @@ class ValidMethodTask < ActiveTask::Task::Base
   end
 end
 
-class ValidCommandTask < ActiveTask::Task::Base
-  execute :command, "ls"
+class ValidSystemCommandTask < ActiveTask::Task::Base
+  execute :system, "ls"
 end
 
 class ValidRakeTask < ActiveTask::Task::Base

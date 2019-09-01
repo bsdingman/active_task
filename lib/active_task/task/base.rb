@@ -17,7 +17,7 @@ module ActiveTask
 
       def self.execute(task_type, *task_attributes)
         define_variables
-        @tasks << Internal::RunningTask.new(task_type, task_attributes)
+        @tasks << ActiveTask::Task::Internal::RunningTask.new(task_type, task_attributes)
       end
 
       def self.instantiate(version)
@@ -41,7 +41,7 @@ module ActiveTask
         @tasks.each do |task|
           begin
             check_validity(task)
-          rescue ActiveTask::Exceptions::InvalidTask, ActiveTask::Exceptions::InvalidRakeTask, ActiveTask::Exceptions::InvalidMethodTask => ex
+          rescue StandardError => ex
             @errors << ex.message
             valid = false
           end
@@ -55,8 +55,8 @@ module ActiveTask
           case task.task_type
           when :rake
             execute_rakes(task)
-          when :command
-            execute_commands(task)
+          when :system
+            execute_system_commands(task)
           when :method
             execute_methods(task)
           end
@@ -84,7 +84,7 @@ module ActiveTask
           verify_rakes(task)
         when :method
           verify_methods(task)
-        when :command
+        when :system
           # Haven't found a good way to check if system commands exist
           return
         else
@@ -132,10 +132,10 @@ module ActiveTask
         end
       end
 
-      def execute_commands(task)
+      def execute_system_commands(task)
         begin
-          task.task_attributes.each do |command|
-            `#{command}`
+          task.task_attributes.each do |system_command|
+            `#{system_command}`
           end
         rescue Exception => ex
           raise ActiveTask::Exceptions::FailedTask.new(@klass_name, ex.message)
