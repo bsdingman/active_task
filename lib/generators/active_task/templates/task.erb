@@ -1,7 +1,4 @@
 class <%= name.camelize %> < ActiveTask::Task::Base
-  # TODO: COMMAND DOCS
-  execute(:command, "yarn install", "bundle install")
-
   ##########################
   # RAKE TASKS
   # Syntax:
@@ -50,22 +47,16 @@ class <%= name.camelize %> < ActiveTask::Task::Base
   ##########################
   # SYSTEM COMMAND
   # Syntax:
-  #   execute(:system, method_or_methods_to_call)
+  #   execute(:system, system_command_or_commands)
   #
   # Example: 
-  #   Call a method called `my_method`
-  #   Note: This method needs to be defined in this class
+  #   Run a python script in home
   # Syntax:
-  #   execute(:method, :my_method)
-  #   def my_method
-  #     "Do some code here or call other methods"
-  #   end
+  #   execute(:system, "python ~/party_parrot.py")
   #
   # Example: 
-  #   Calls methods `my_method` and `another_method`
+  #   Bundle install and Yarn install
   # Syntax:
-  #   execute(:method, :my_method, :another_method)
-  #   def my_method; end 
-  #   def another_method; end
+  #   execute(:system, "bundle install", "yarn install")
   ##########################
 end
