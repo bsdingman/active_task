@@ -1,9 +1,9 @@
 require_relative "../models/test_tasks"
 
-describe ActiveTask::Task do
+describe ActiveTask::Task::Base do
   describe ValidMethodTask do
     before(:context) do
-      @task = ValidMethodTask.instantiate(Time.now.strftime("%Y%m%d%H%M%S"))
+      @task = ValidMethodTask.instantiate(generate_version)
     end
 
     it "should be valid" do
@@ -16,12 +16,17 @@ describe ActiveTask::Task do
 
     it "should execute" do
       expect{ @task.execute_tasks! }.not_to raise_error
+    end
+
+    it "should mark it completed" do 
+      @task.mark_as_completed!
+      expect(ActiveTask.resource.where(version: @task.version).any?).to be(true)
     end
   end
 
   describe ValidSystemCommandTask do 
     before(:context) do
-      @task = ValidSystemCommandTask.instantiate(Time.now.strftime("%Y%m%d%H%M%S"))
+      @task = ValidSystemCommandTask.instantiate(generate_version)
     end
 
     it "should be valid" do
@@ -34,6 +39,11 @@ describe ActiveTask::Task do
 
     it "should execute" do
       expect{ @task.execute_tasks! }.not_to raise_error
+    end
+
+    it "should mark it completed" do 
+      @task.mark_as_completed!
+      expect(ActiveTask.resource.where(version: @task.version).any?).to be(true)
     end
   end
 
@@ -53,6 +63,11 @@ describe ActiveTask::Task do
     it "should execute" do
       expect{ @task.execute_tasks! }.not_to raise_error
     end
+    
+    it "should mark it completed" do 
+      @task.mark_as_completed!
+      expect(ActiveTask.resource.where(version: @task.version).any?).to be(true)
+    end
   end
 
   describe FailureMissingMethodTask do
@@ -66,6 +81,11 @@ describe ActiveTask::Task do
 
     it "should not have \"my_method\" defined" do 
       expect(@task.errors).to include("Method \"my_method\" has not been defined")
+    end
+
+    it "should mark it completed" do 
+      @task.mark_as_completed!
+      expect(ActiveTask.resource.where(version: @task.version).any?).to be(true)
     end
   end
 
@@ -81,6 +101,10 @@ describe ActiveTask::Task do
     it "should raise an exception" do 
       expect{ @task.execute_tasks! }.to raise_error(/undefined local variable or method/i)
     end
+
+    it "should not be marked as completed" do 
+      expect(ActiveTask.resource.where(version: @task.version).any?).to be(false)
+    end
   end
 
   describe FailureRakeTask do
@@ -94,6 +118,10 @@ describe ActiveTask::Task do
 
     it "should not have \"test_rake\" defined" do 
       expect(@task.errors).to include("Could not find rake task \"test_rake\"")
+    end
+
+    it "should not be marked as completed" do 
+      expect(ActiveTask.resource.where(version: @task.version).any?).to be(false)
     end
   end
 end

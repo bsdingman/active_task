@@ -27,7 +27,7 @@ module ActiveTask
       ###################################
       # Public Instance Methods
       ###################################
-      attr_accessor :tasks, :errors
+      attr_accessor :tasks, :errors, :version
       def initialize(tasks, version)
         @tasks = tasks
         @errors = []
