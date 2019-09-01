@@ -1,5 +1,5 @@
 describe ActiveTask::Task do
-  it "should run pending tasks and not raise error" do 
+  it "should have pending tasks" do 
     generate_task("valid_method", %q(
       class ValidMethod < ActiveTask::Task::Base
         execute(:method, :my_method)
@@ -9,16 +9,28 @@ describe ActiveTask::Task do
       end
     ))
 
+    expect(ActiveTask::Task.tasks_pending?).to be(true)
+  end
+
+  it "should run pending tasks and not raise error" do     
     expect{ ActiveTask::Task.run }.not_to raise_error
   end
 
-  it "should fail to run pending tasks and raise error" do 
+  it "should have no pending tasks" do 
+    expect(ActiveTask::Task.tasks_pending?).to be(false)
+  end
+
+  it "should have pending tasks" do 
     generate_task("invalid_method", %q(
       class InvalidMethod < ActiveTask::Task::Base
         execute(:method, :my_method)
       end
     ))
 
+    expect(ActiveTask::Task.tasks_pending?).to be(true)
+  end
+
+  it "should fail to run pending tasks and raise error" do 
     expect{ ActiveTask::Task.run }.to raise_error(/method \"my_method\" has not been defined/i)
   end
 
