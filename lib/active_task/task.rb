@@ -28,7 +28,7 @@ module ActiveTask
       running_task.mark_as_completed!
     end
 
-    def self.pending_tasks?
+    def self.tasks_pending?
       tasks.any?
     end
 
