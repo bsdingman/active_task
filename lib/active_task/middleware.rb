@@ -5,19 +5,14 @@ module ActiveTask
     end
 
     def call(env)
-      @status, @headers, @response = @app.call(env)
       check_for_tasks
-      [@status, @headers, @response]
+      @app.call(env)
     end
 
     def check_for_tasks
-      if pending_tasks?
-        raise ActiveTask::Exceptions::PendingTask.new("You have a pending task that needs completed. Please execute command \"bundle exec rake at:run\" to clear this error")
+      if ActiveTask::Task.pending_tasks?
+        raise ActiveTask::Exceptions::PendingTask.new("You have pending task(s) that needs completed. Please execute command \"bundle exec rake active_task:run\" to clear this error")
       end
-    end
-
-    def pending_tasks?
-      true
     end
   end
 end

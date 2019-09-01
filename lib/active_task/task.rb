@@ -2,6 +2,7 @@ require "active_task/task/internal/running_task"
 require "active_task/task/internal/rake_task"
 require "active_task/task/internal/file_task"
 require "active_task/task/base"
+require "byebug"
 
 module ActiveTask
   module Task
@@ -25,6 +26,10 @@ module ActiveTask
       require task.file_path
       running_task = task.name.camelize.constantize.instantiate(task.version)
       running_task.mark_as_completed!
+    end
+
+    def self.pending_tasks?
+      tasks.any?
     end
 
     private

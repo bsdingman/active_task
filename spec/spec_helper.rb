@@ -16,14 +16,14 @@ RSpec.configure do |config|
   end
 end
 
-# Clean up the tasks folder
-Dir["#{File.expand_path("./tasks")}/*.rb"].each{ |f| File.delete(f) }
-
-SEED = Random.new(SecureRandom.uuid.gsub(/[^\d]/, "")[0..5].to_i)
+def clear_task_folder
+  # Clean up the tasks folder
+  Dir["#{File.expand_path("./tasks")}/*.rb"].each{ |f| File.delete(f) }
+end
 
 def generate_version
   nums = [1,2,3,4,5,6,7,8,9,0]
-  t = (0..13).map{ nums[SEED.rand(nums.length)] }.join
+  t = (0..13).map{ nums[rand(nums.length)] }.join
 end
 
 def generate_task(name, contents)
@@ -38,3 +38,6 @@ end
 def parse_version_from_task_name(task_name)
   task_name.match(/(\d{14})_(.*)\.rb$/i)[1]
 end
+
+
+clear_task_folder
