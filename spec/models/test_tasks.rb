@@ -21,7 +21,7 @@ class FailureMissingMethodTask < ActiveTask::Task::Base
   execute :method, :my_method
 end
 
-class FailureRaiseExceptionMethodTask < ActiveTask::Task::Base
+class MethodRaiseExceptionTask < ActiveTask::Task::Base
   execute :method, :my_exception_method
 
   def my_exception_method

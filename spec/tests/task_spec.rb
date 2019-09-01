@@ -89,9 +89,9 @@ describe ActiveTask::Task::Base do
     end
   end
 
-  describe FailureRaiseExceptionMethodTask do
+  describe MethodRaiseExceptionTask do
     before(:context) do
-      @task = FailureRaiseExceptionMethodTask.instantiate(generate_version)
+      @task = MethodRaiseExceptionTask.instantiate(generate_version)
     end
 
     it "should be valid" do
@@ -141,7 +141,7 @@ describe ActiveTask::Task::Base do
     it "should raise an exception when executing" do
       expect{ @task.execute_tasks! }.to raise_error(/i am an exception\!/i)
     end
-    
+
     it "should not be marked as completed" do 
       expect(ActiveTask.resource.where(version: @task.version).any?).to be(false)
     end
