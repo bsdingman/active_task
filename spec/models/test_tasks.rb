@@ -13,6 +13,7 @@ end
 
 class ValidRakeTask < ActiveTask::Task::Base
   execute :rake, "active_task_testing:valid"
+  execute :rake, "active_task_testing:valid", "active_task_testing:another_valid"
   execute :rake, "active_task_testing:valid_args": ["1", "2"]
 end
 

@@ -4,6 +4,11 @@ namespace :active_task_testing do
     true
   end
 
+  desc "(tests) Is another valid rake"
+  task another_valid: :environment do
+    true
+  end
+
   desc "(tests) Is valid rake with arguments"
   task valid_args: :environment do
     response = STDIN.gets.chomp
