@@ -146,4 +146,26 @@ describe ActiveTask::Task::Base do
       expect(ActiveTask.resource.where(version: @task.version).any?).to be(false)
     end
   end
+
+  describe SystemRaiseExceptionTask do 
+    before(:context) do
+      @task = SystemRaiseExceptionTask.instantiate(generate_version)
+    end
+
+    it "should be valid" do
+      expect(@task.valid?).to be(true)
+    end
+
+    it "should have no errors" do 
+      expect(@task.errors).to be_empty
+    end
+
+    it "should raise an exception when executing" do
+      expect{ @task.execute_tasks! }.to raise_error(/no such file or directory/i)
+    end
+
+    it "should not be marked as completed" do 
+      expect(ActiveTask.resource.where(version: @task.version).any?).to be(false)
+    end
+  end
 end

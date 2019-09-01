@@ -11,6 +11,10 @@ class ValidSystemCommandTask < ActiveTask::Task::Base
   execute :system, "which ruby", "which gem"
 end
 
+class SystemRaiseExceptionTask < ActiveTask::Task::Base
+  execute :system, "t"
+end
+
 class ValidRakeTask < ActiveTask::Task::Base
   execute :rake, "active_task_testing:valid"
   execute :rake, "active_task_testing:valid", "active_task_testing:another_valid"
