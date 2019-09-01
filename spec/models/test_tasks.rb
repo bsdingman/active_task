@@ -8,6 +8,7 @@ end
 
 class ValidSystemCommandTask < ActiveTask::Task::Base
   execute :system, "ls"
+  execute :system, "which ruby", "which gem"
 end
 
 class ValidRakeTask < ActiveTask::Task::Base
