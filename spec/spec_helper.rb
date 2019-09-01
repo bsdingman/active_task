@@ -16,3 +16,12 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
+
+# Clean up the tasks folder
+Dir["#{File.expand_path("./tasks")}/*.rb"].each{ |f| File.delete(f) }
+
+def generate_task(name, contents)
+  task = File.new("#{File.expand_path("./tasks")}/12345678901234_#{name}.rb", File::CREAT|File::RDWR)
+  task.write(contents)
+  task.close
+end

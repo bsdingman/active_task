@@ -65,7 +65,7 @@ describe ActiveTask::Task do
     end
 
     it "should not have \"my_method\" defined" do 
-      expect(@task.errors).to include("Task \"FailureMissingMethodTask\" method task method \"my_method\" has not been defined")
+      expect(@task.errors).to include("Method \"my_method\" has not been defined")
     end
   end
 
@@ -93,7 +93,7 @@ describe ActiveTask::Task do
     end
 
     it "should not have \"test_rake\" defined" do 
-      expect(@task.errors).to include("Task \"FailureRakeTask\" could not find rake task \"test_rake\"")
+      expect(@task.errors).to include("Could not find rake task \"test_rake\"")
     end
   end
 end

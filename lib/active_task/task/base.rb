@@ -62,6 +62,16 @@ module ActiveTask
         end
       end
 
+      def errors_as_string
+        error_string = "\n#{@klass_name} failed validation with errors:\n"
+
+        @errors.each do |error|
+          error_string += "\t#{error}"
+        end
+
+        error_string
+      end
+
       protected
       def check_validity(task)
         case task.task_type
@@ -82,12 +92,12 @@ module ActiveTask
           if rake_task.is_a?(Hash)
             rake_task.each do |rake, args|
               if !Rake::Task.task_defined?(rake)
-                raise ActiveTask::Exceptions::InvalidRakeTask.new("Task \"#{@klass_name}\" could not find rake task \"#{rake}\"")
+                raise ActiveTask::Exceptions::InvalidRakeTask.new("Could not find rake task \"#{rake}\"")
               end
             end
           else
             if !Rake::Task.task_defined?(rake_task)
-              raise ActiveTask::Exceptions::InvalidRakeTask.new("Task \"#{@klass_name}\" could not find rake task \"#{rake_task}\"")
+              raise ActiveTask::Exceptions::InvalidRakeTask.new("Could not find rake task \"#{rake_task}\"")
             end
           end
         end
@@ -96,7 +106,7 @@ module ActiveTask
       def verify_methods(task)
         task.task_attributes.each do |method_name|
           if !self.class.method_defined?(method_name)
-            raise ActiveTask::Exceptions::InvalidMethodTask.new("Task \"#{@klass_name}\" method task method \"#{method_name}\" has not been defined")
+            raise ActiveTask::Exceptions::InvalidMethodTask.new("Method \"#{method_name}\" has not been defined")
           end
         end
       end

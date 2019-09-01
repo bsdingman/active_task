@@ -7,4 +7,8 @@ module ActiveTask
   def self.configure
     yield config
   end
+  
+  def self.table_name
+    ActiveTask.config.table_name.to_s.singularize.camelize
+  end
 end

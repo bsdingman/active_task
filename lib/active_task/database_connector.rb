@@ -3,11 +3,24 @@ require "rails"
 
 module ActiveTask
   class DatabaseConnector
+    class << self
+      attr_accessor :connected
+    end
+
     def self.connect
       ActiveRecord::Base.establish_connection(YAML.load_file(path_to_database_yml)[Rails.env])
 
       # Create our table to keep track of versions 
       create_table
+
+      # Create the ActiveRecord model
+      create_model
+
+      @connected = true
+    end
+
+    def self.connected?
+      !@connected.nil?
     end
 
     private
@@ -17,7 +30,7 @@ module ActiveTask
 
     def self.create_table
       table_name = ActiveTask.config.table_name
-      
+
       ActiveRecord::Schema.define do
         self.verbose = false
 
@@ -27,6 +40,12 @@ module ActiveTask
           end
         end
       end
+    end
+
+    def self.create_model
+      # Create a new class based on what the user sets in the config
+      klass = Class.new(ActiveRecord::Base)
+      Object.send(:const_set, ActiveTask.table_name, klass)
     end
   end
 end
