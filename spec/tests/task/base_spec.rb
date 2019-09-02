@@ -1,9 +1,9 @@
 require_relative "../../models/test_tasks"
 
 describe ActiveTask::Task::Base do
-  describe ValidMethodTask do
+  describe MethodTask do
     before(:context) do
-      @task = ValidMethodTask.instantiate(generate_version)
+      @task = MethodTask.instantiate(generate_version)
     end
 
     it "should be valid" do
@@ -24,9 +24,9 @@ describe ActiveTask::Task::Base do
     end
   end
 
-  describe ValidSystemCommandTask do 
+  describe SystemCommandTask do 
     before(:context) do
-      @task = ValidSystemCommandTask.instantiate(generate_version)
+      @task = SystemCommandTask.instantiate(generate_version)
     end
 
     it "should be valid" do
@@ -47,9 +47,9 @@ describe ActiveTask::Task::Base do
     end
   end
 
-  describe ValidRakeTask do 
+  describe RakeTask do 
     before(:context) do
-      @task = ValidRakeTask.instantiate(generate_version)
+      @task = RakeTask.instantiate(generate_version)
     end
 
     it "should be valid" do
@@ -70,9 +70,9 @@ describe ActiveTask::Task::Base do
     end
   end
 
-  describe FailureMissingMethodTask do
+  describe MissingMethodTask do
     before(:context) do
-      @task = FailureMissingMethodTask.instantiate(generate_version)
+      @task = MissingMethodTask.instantiate(generate_version)
     end
 
     it "should be invalid" do
@@ -107,9 +107,9 @@ describe ActiveTask::Task::Base do
     end
   end
 
-  describe FailureRakeTask do
+  describe UndefinedRakeTask do
     before(:context) do
-      @task = FailureRakeTask.instantiate(generate_version)
+      @task = UndefinedRakeTask.instantiate(generate_version)
     end
 
     it "should be invalid" do
