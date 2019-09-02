@@ -5,6 +5,11 @@ module ActiveTask
     end
 
     def call(env)
+      # Connect to the DB if we aren't already
+      if !ActiveTask::Database.connected?
+        ActiveTask::Database.connect
+      end
+      
       check_for_tasks
       @app.call(env)
     end
