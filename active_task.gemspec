@@ -10,9 +10,9 @@ Gem::Specification.new do |spec|
   spec.email         = ["bsdingman@gmail.com"]
 
   spec.summary       = %q{Create required tasks}
-  spec.description   = %q{Based of ActiveRecord's database migrations...}
-  spec.homepage      = "http://example.com"
-  spec.license       = "UNLICENSED"
+  spec.description   = %q{Active Task allows teams of developers to ensure required tasks are ran on everyone's computers}
+  spec.homepage      = "https://www.github.com/active_task"
+  spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
