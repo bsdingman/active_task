@@ -3,12 +3,12 @@ require 'active_support/core_ext/string'
 
 module ActiveTask
   module Generators
-    class CreateTaskGenerator < Rails::Generators::NamedBase
+    class TaskGenerator < Rails::Generators::NamedBase
       source_root File.expand_path('../templates', __FILE__)
       argument :name, type: :string
     
       desc "This generator creates a ActiveTask task"
-      def create
+      def task
         @formatted_name = name.underscore
         @time = Time.now.strftime("%Y%m%d%H%M%S")
 
