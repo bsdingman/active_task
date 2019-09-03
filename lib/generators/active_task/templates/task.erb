@@ -3,60 +3,13 @@ class <%= name.camelize %> < ActiveTask::Task::Base
   # RAKE TASKS
   # Syntax:
   #   execute(:rake, task_or_tasks_to_run)
-  #
-  # Example: 
-  #   Run Rake Task: "create_llamas"
-  # Syntax:
-  #   execute(:rake, "create_llamas")
-  #
-  # Example: 
-  #   Run Rake Task "create_llamas" in namespace "farm"
-  # Syntax:
-  #   execute(:rake, "farm:create_llamas")
-  #
-  # Example: 
-  #   Run Rake Task "create_llamas" and "create_cows" in namespace "farm"
-  # Syntax:
-  #   execute(:rake, "farm:create_llamas", "farm:create_cows")
-  #
-  # Example: 
-  #   [EXPERIMENTAL] Respond to user input questions. 
-  #   These rake tasks print "How many?" out to the console and expects input back
-  # Syntax:
-  #   execute(:rake, "farm:create_llamas": ["5"], "farm:create_pigs": ["2"])
   ##########################
   # METHOD CALLS
   # Syntax:
   #   execute(:method, method_or_methods_to_call)
-  #
-  # Example: 
-  #   Call a method called `my_method`
-  #   Note: This method needs to be defined in this class
-  # Syntax:
-  #   execute(:method, :my_method)
-  #   def my_method
-  #     "Do some code here or call other methods"
-  #   end
-  #
-  # Example: 
-  #   Calls methods `my_method` and `another_method`
-  # Syntax:
-  #   execute(:method, :my_method, :another_method)
-  #   def my_method; end 
-  #   def another_method; end
   ##########################
   # SYSTEM COMMAND
   # Syntax:
   #   execute(:system, system_command_or_commands)
-  #
-  # Example: 
-  #   Run a python script in home
-  # Syntax:
-  #   execute(:system, "python ~/party_parrot.py")
-  #
-  # Example: 
-  #   Bundle install and Yarn install
-  # Syntax:
-  #   execute(:system, "bundle install", "yarn install")
   ##########################
 end
