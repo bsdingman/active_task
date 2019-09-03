@@ -52,7 +52,7 @@ In the event a task needs to be manually completed:
 You will be prompted to enter the **filename** of the task you want to complete.
 
 ## Task Types (with examples)
-Tasks are defined by using the `execute` method inheriated from `ActiveTask::Task::Base`
+Tasks are defined by using the `execute` method inherited from `ActiveTask::Task::Base`
 ### Rake Tasks
 **Syntax**
 ```ruby
