@@ -16,13 +16,13 @@ Active Task allows developers to create tasks that run Ruby code, Rake tasks, or
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'active_task'
+gem 'active_task', git: 'https://github.com/bsdingman/active_task.git'
 ```
 
 And then execute:
 
     $ bundle install
-    $ bundle exec rails g active_task:config
+    $ bundle exec rails g active_task:setup
 
 This will create a file called `active_task.rb` in `config/initializers` and a middleware entry in `config/environments/development.rb`
 
