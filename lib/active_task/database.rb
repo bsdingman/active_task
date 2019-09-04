@@ -36,8 +36,10 @@ module ActiveTask
 
         if !table_exists?(table_name)
           create_table(table_name, id: false) do |t|
-            t.primary_key :version
+            t.string :version
           end
+          
+          add_index table_name, :version, unique: true
         end
       end
     end
