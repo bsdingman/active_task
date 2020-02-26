@@ -2,12 +2,12 @@
 
 *Hey, I'm pulling your code, is there anything I need to run?"*
 
-Sound familar? When working on a team, we all hear it, we all ask it. Active Task answers that question.
+Sound familiar? When working on a team, we all hear it, we all ask it. Active Task answers that question.
 
 Active Task allows developers to create tasks that run Ruby code, Rake tasks, or even system commands. Similar to Active Record, Active Task will throw an error if there are any pending tasks. Once a task has been ran, it will not be ran again on same machine.
 
 ### DEVELOPER'S NOTES
-- This is my first gem I've written. Even though it has a decent amount of tests, expect bugs. 
+- This is my first gem I've written. Even though it has a decent amount of tests, expect bugs.
 - I have not tested this extensively in a team environment (SoonTM)
 - I have not tested this in a production environment. (SoonTM)
 
@@ -37,7 +37,7 @@ Tasks can be created by running:
 
 This will create a new task in `tasks/YYYYMMDDhhmmss_NAME.rb`. It is recommended to check these files into your source control.
 
-### Running tasks 
+### Running tasks
 
 Now that a task has been created, the next time Rails receives a request, Active Task will throw an exception requiring any pending tasks to be ran. Simply execute the following command in a terminal window:
 
@@ -77,7 +77,7 @@ class CreateLlamas < ActiveTask::Task::Base
   execute :rake, "farm:create_llamas"
 end
 ```
- 
+
 Run Rake Task "create_llamas" and "create_cows" in namespace "farm"
 ```ruby
 # tasks/xxxxxxxxxxxxxx_create_llamas_and_cows.rb
