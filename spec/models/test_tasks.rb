@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MethodTask < ActiveTask::Task::Base
   execute :method, :my_method
 
@@ -14,7 +16,7 @@ end
 class RakeTask < ActiveTask::Task::Base
   execute :rake, "active_task_testing:valid"
   execute :rake, "active_task_testing:valid", "active_task_testing:another_valid"
-  execute :rake, "active_task_testing:valid_args": ["1", "2"]
+  execute :rake, "active_task_testing:valid_args": %w[1 2]
 end
 
 class MissingMethodTask < ActiveTask::Task::Base

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 module ActiveTask
-  module Task
+  class Task
     module Internal
       class RakeTask
         def self.invoke(rake_task, arguments: [])
@@ -10,7 +12,6 @@ module ActiveTask
           end
         end
 
-        private
         def self.invoke_rake(rake_task)
           Rake::Task[rake_task].invoke
         end
@@ -41,7 +42,7 @@ module ActiveTask
             # The new line character will "Submit" our response
             write_io.write("#{argument}\n")
           end
-          
+
           # Close the write pipe
           write_io.close
 

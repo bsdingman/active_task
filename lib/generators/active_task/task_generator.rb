@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 require 'rails/generators'
 require 'active_support/core_ext/string'
 
 module ActiveTask
   module Generators
     class TaskGenerator < Rails::Generators::NamedBase
-      source_root File.expand_path('../templates', __FILE__)
+      source_root File.expand_path('templates', __dir__)
       argument :name, type: :string
-    
+
       desc "This generator creates a ActiveTask task"
       def task
         @formatted_name = name.underscore

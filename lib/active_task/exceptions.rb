@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActiveTask
   module Exceptions
     class InvalidConfig < StandardError; end

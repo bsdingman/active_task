@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActiveTask
   class Middleware
     def initialize(app)
@@ -6,18 +8,14 @@ module ActiveTask
 
     def call(env)
       # Connect to the DB if we aren't already
-      if !ActiveTask::Database.connected?
-        ActiveTask::Database.connect
-      end
-      
+      ActiveTask::Database.connect if !ActiveTask::Database.connected?
+
       check_for_tasks
       @app.call(env)
     end
 
     def check_for_tasks
-      if ActiveTask::Task.tasks_pending?
-        raise ActiveTask::Exceptions::PendingTask.new("You have pending task(s) that needs completed. Please execute command \"bundle exec rake active_task:run\" to clear this error")
-      end
+      raise ActiveTask::Exceptions::PendingTask, "You have pending task(s) that needs completed. Please execute command \"bundle exec rake active_task:run\" to clear this error" if ActiveTask::Task.tasks_pending?
     end
   end
 end

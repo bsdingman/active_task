@@ -1,4 +1,6 @@
-namespace :active_task do 
+# frozen_string_literal: true
+
+namespace :active_task do
   desc "Run any pending tasks"
   task run: :environment do
     ActiveTask::Task.run

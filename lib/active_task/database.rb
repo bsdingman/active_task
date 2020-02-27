@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "active_record"
 require "rails"
 
@@ -10,7 +12,7 @@ module ActiveTask
     def self.connect
       ActiveRecord::Base.establish_connection(YAML.load_file(path_to_database_yml)[Rails.env])
 
-      # Create our table to keep track of versions 
+      # Create our table to keep track of versions
       create_table
 
       # Create the ActiveRecord model
@@ -23,7 +25,6 @@ module ActiveTask
       !@connected.nil?
     end
 
-    private
     def self.path_to_database_yml
       ActiveTask.config.database_yml
     end
@@ -38,7 +39,7 @@ module ActiveTask
           create_table(table_name, id: false) do |t|
             t.string :version
           end
-          
+
           add_index table_name, :version, unique: true
         end
       end
